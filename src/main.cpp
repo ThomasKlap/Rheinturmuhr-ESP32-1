@@ -2,7 +2,7 @@
 #include <WiFiManager.h>
 #include <time.h>
 #include "led_stripe.h"
-// End includes
+
 
 int lastMilis;
 int temp;
