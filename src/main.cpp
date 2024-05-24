@@ -3,12 +3,11 @@
 #include <time.h>
 #include "led_stripe.h"
 
-
 int lastMilis;
 int temp;
 unsigned long CycleMillis = 0; // speichert den Zeitpunkt des Letzten Zyklus
-const char* NTP_SERVER = "de.pool.ntp.org";
-const char* TZ_INFO    = "CET-1CEST-2,M3.5.0/02:00:00,M10.5.0/03:00:00";
+const char *NTP_SERVER = "de.pool.ntp.org";
+const char *TZ_INFO = "CET-1CEST-2,M3.5.0/02:00:00,M10.5.0/03:00:00";
 
 char wochentage[7][12] = {"Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"};
 String monat[12] = {"Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"};
@@ -16,45 +15,8 @@ String monat[12] = {"Januar", "Februar", "März", "April", "Mai", "Juni", "Juli"
 time_t now;
 tm tm;
 
-void printLocalTime()
-{
-  struct tm timeinfo;
-  if (!getLocalTime(&timeinfo))
-  {
-    Serial.println("Failed to obtain time");
-    return;
-  }
-  Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
-  Serial.print("Day of week: ");
-  Serial.println(&timeinfo, "%A");
-  Serial.print("Month: ");
-  Serial.println(&timeinfo, "%B");
-  Serial.print("Day of Month: ");
-  Serial.println(&timeinfo, "%d");
-  Serial.print("Year: ");
-  Serial.println(&timeinfo, "%Y");
-  Serial.print("Hour: ");
-  Serial.println(&timeinfo, "%H");
-  Serial.print("Hour (12 hour format): ");
-  Serial.println(&timeinfo, "%I");
-  Serial.print("Minute: ");
-  Serial.println(&timeinfo, "%M");
-  Serial.print("Second: ");
-  Serial.println(&timeinfo, "%S");
-
-  Serial.println("Time variables");
-  char timeHour[3];
-  strftime(timeHour, 3, "%H", &timeinfo);
-  Serial.println(timeHour);
-  char timeWeekDay[10];
-  strftime(timeWeekDay, 10, "%A", &timeinfo);
-  Serial.println(timeWeekDay);
-  Serial.println();
-}
-
 void setup()
 {
-
   Serial.begin(115200);
   WiFiManager wm;
   bool res;
@@ -72,29 +34,29 @@ void setup()
 
   configTime(0, 0, NTP_SERVER);
   setenv("TZ", TZ_INFO, 1);
- 
-    npx_start(); //Start Routine für die Neopixel
+
+  npx_start(); // Start Routine für die Neopixel
 }
 
 void loop()
 {
 
-delay(50);
-CycleMillis = millis();
-  show_out(tm.tm_sec,tm.tm_min,tm.tm_hour);
-CycleMillis = millis() - CycleMillis;
-/*
-Serial.print("CycleTime: ");
-Serial.println(CycleMillis);
-*/
+  delay(50);
+  CycleMillis = millis();
+  show_out(tm.tm_sec, tm.tm_min, tm.tm_hour);
+  CycleMillis = millis() - CycleMillis;
+  /*
+  Serial.print("CycleTime: ");
+  Serial.println(CycleMillis);
+  */
 
- time(&now);                       // Liest die aktuelle Zeit
-  localtime_r(&now, &tm);           // Beschreibt tm mit der aktuelle Zeit
- Serial.printf("%02d-%02d-%04d \t", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
-  //Serial.printf("%02d %s %04d \t", tm.tm_mday, monat[tm.tm_mon], tm.tm_year + 1900);  // Monat ausgeschrieben
+  time(&now);             // Liest die aktuelle Zeit
+  localtime_r(&now, &tm); // Beschreibt tm mit der aktuelle Zeit
+  Serial.printf("%02d-%02d-%04d \t", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+  // Serial.printf("%02d %s %04d \t", tm.tm_mday, monat[tm.tm_mon], tm.tm_year + 1900);  // Monat ausgeschrieben
 
   Serial.print(wochentage[tm.tm_wday]);
-  //Serial.print(tm.tm_wday);         // Wochentag als Zahl, 0 = Sonntag
+  // Serial.print(tm.tm_wday);         // Wochentag als Zahl, 0 = Sonntag
   Serial.print("\tder ");
   Serial.print(tm.tm_mday);
   Serial.print(" " + monat[tm.tm_mon] + " ");
