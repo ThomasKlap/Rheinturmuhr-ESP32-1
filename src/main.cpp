@@ -37,6 +37,9 @@ void setup()
   setenv("TZ", TZ_INFO, 1);
 
   npx_start(); // Start Routine für die Neopixel
+
+  pinMode(26, OUTPUT); // Setzt den Digitalpin 26 als Outputpin
+  pinMode(27, OUTPUT); // Setzt den Digitalpin 27 als Outputpin
 }
 
 void loop()

@@ -20,9 +20,9 @@ int posR =50; //Positionslichter
 int posG =0;
 int posB =0;
 
-int restR =10; //Restaurant
-int restG =0;
-int restB =15;
+int restR =00; //Restaurant
+int restG =10;
+int restB =10;
 
 /* 
 _______________________________________________
@@ -88,9 +88,13 @@ unsigned long currentMillis = millis(); // Aktuelle Zeit wird in currentMillis g
 
   if (currentMillis - PosMillisP >= interval) { // Falls mehr als 1000 ms vergangen sind
       shiftout_light (startpos, bits, color_red, color_green, color_blue);
+      digitalWrite(26, HIGH); 
+      digitalWrite(27, LOW); 
   }
   if (currentMillis - PosMillisP >= interval*2) { // Falls mehr als 1000 ms vergangen sind
       shiftout_light (startpos, bits, 0, 0, 0);
+      digitalWrite(27, HIGH); 
+      digitalWrite(26, LOW);
      PosMillisP = currentMillis;} // Zeitpunkt der letzten Schaltung wird festgehalten 
     
   pixels.show();   // Send the updated pixel colors to the hardware.
@@ -133,8 +137,8 @@ void show_out(int sec, int min, int hrs) //Ausgabe der Zeitanzeige zum Turm
   tempNPX = hrs / 10 ;
   shiftout_bits(55, 2, tempNPX, countR, countG, countB); // Funktion Bitszählen und Muster ausgeben aufrufen
   // Leere Stellen ausgeben
-  shiftout_light(57, 5, emptyR, emptyG, emptyB); // einzelne Lampe
+  shiftout_light(57, 5, emptyR, emptyG, emptyB); // fuenf Trennstellen
+  shiftout_light(62,12,restR, restG, restB); // Resttaurantbeleuchtung
   
-  
-  pos_light (64,6,posR, posG, posB); 
+  pos_light (75,8,restR, restG, restB); 
 }
