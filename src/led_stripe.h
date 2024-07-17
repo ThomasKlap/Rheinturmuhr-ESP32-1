@@ -37,7 +37,7 @@ _______________________________________________
 #define NUMPIXELS 86 // how many neopixels where attached
 
 unsigned long PosMillisP = 0; // time counter for position lights with millis() function
-const long interval = 1000; // light intervall for the position lights
+const long interval = 900; // light intervall for the position lights
 int tempNPX = 0; // temporary variable
 
 Adafruit_NeoPixel pixels(NUMPIXELS, NeoPixelPin, NEO_GRB + NEO_KHZ800);
