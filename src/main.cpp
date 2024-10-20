@@ -21,7 +21,7 @@ void setup()
   Serial.begin(115200);
   WiFiManager wm;
   bool res;
-  res = wm.autoConnect("RheinturmUhr", "123456789"); // password protected ap
+  res = wm.autoConnect("RheinturmUhr-V6-0-1", "123456789"); // password protected ap
   if (!res)
   {
     Serial.println("Failed to connect");

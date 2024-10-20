@@ -33,7 +33,7 @@ _______________________________________________
 #include <Adafruit_NeoPixel.h>
 
 
-#define NeoPixelPin   12 // 
+#define NeoPixelPin   16 // 
 #define NUMPIXELS 86 // how many neopixels where attached
 
 unsigned long PosMillisP = 0; // time counter for position lights with millis() function
